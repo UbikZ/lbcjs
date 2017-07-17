@@ -14,7 +14,7 @@ try {
             $finalUrl = str_replace("##index##", $index, $url);
             $content = file_get_contents($finalUrl);
 
-            echo "Iteration $index : $finalUrl";
+            echo "Iteration $index : $finalUrl" . PHP_EOL;
 
             libxml_use_internal_errors(true);
             $dom->loadHTML($content);
@@ -27,9 +27,19 @@ try {
             if (!is_null($elements)) {
                 /** @var DOMElement $element */
                 foreach ($elements as $element) {
-                    echo $element->getAttribute("href") + PHP_EOL;
+                    echo "Url : " . $element->getAttribute("href") . PHP_EOL;
+                    /** @var DOMElement $dateElement */
+                    $dateElement = $xpath->query("/p[@itemprop=\"availabilityStarts\"]", $element);
+
+                    var_dump($dateElement);
+                    $dateString = $dateElement->getAttribute("content") . " " . explode(",", trim($dateElement->textContent))[1];
+
+                    echo "Date String : " . $dateString . PHP_EOL;
+                    $date = DateTime::createFromFormat('Y-m-d H:i', $dateString);
+                    echo $date->format('Y-m-d H:i:s') . PHP_EOL;
                 }
             }
+
             $enabled = false;
             $index++;
         } while ($enabled);
