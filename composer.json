@@ -1,0 +1,10 @@
+{
+  "name": "ubikz/lbcphp",
+  "authors": [
+    {
+      "name": "Gabriel Malet",
+      "email": "gabrielmalet@gmail.com"
+    }
+  ],
+  "require": {}
+}

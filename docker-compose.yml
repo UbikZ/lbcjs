@@ -1,0 +1,6 @@
+lbcjs:
+  container_name: lbcjs
+  build: .
+  volumes:
+      - ./docker/db:/src/db
+      - ./conf.json:/src/conf.json:ro
